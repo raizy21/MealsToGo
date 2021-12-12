@@ -7,21 +7,19 @@ import { RestaurantInfoCard } from '../components/restaurants-info-card.componen
 //SafeAreaView
 const SafeArea = styled(SafeAreaView)`
   flex: 1;
-  margin-top: ${StatusBar.currentHeight}px;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
   `;
 
   //View Searchbar
 const SearchContainer = styled.View`
-  padding: 16px;
-  background-color: yellow;
+  padding: ${(props) => props.theme.space[3]};
 `;
 
 //View RestaurantInfoCard
 const RestaurantListContainer =styled.View`
   flex: 1;
-  padding: 16px;
-  background-color: black;
-`;
+  padding: ${(props) => props.theme.space[3]};
+  `;
 export const RestaurantsScreen = () => (
 
   <SafeArea>
