@@ -7,7 +7,15 @@ import { Text } from "../../../components/typography/text.component";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
 
-import { RestaurantCard, RestaurantCardCover, Info, Section, SectionEnd, Rating, Icon, Address } from './restaurant-info-card.styles';
+import { 
+  RestaurantCard, 
+  RestaurantCardCover, 
+  Info, 
+  Section, 
+  SectionEnd, 
+  Rating, 
+  Icon, 
+  Address } from './restaurant-info-card.styles';
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
