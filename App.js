@@ -13,11 +13,21 @@ import {
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 
 import { RestaurantsScreen } from './src/features/restaurants/screens/restaurants.screen';
+import { SafeArea } from './src/components/utility/safe-area.component';
 
 const Tab = createBottomTabNavigator();
 
-const Map = () => <Text>Map</Text>
-const Settings = () => <Text>Settings</Text>
+const Map = () => (
+  <SafeArea>
+    <Text>Map</Text>
+  </SafeArea>  
+);
+
+const Settings = () => (
+  <SafeArea>
+    <Text>Settings</Text>
+  </SafeArea>  
+);
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
