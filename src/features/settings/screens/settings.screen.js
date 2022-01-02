@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
@@ -8,6 +8,7 @@ import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SettingsItem = styled(List.Item)`
   padding: ${(props) => props.theme.space[3]};
@@ -16,8 +17,17 @@ const AvatarContainer = styled.View`
   align-items: center;
 `;
 
+
+
 export const SettingsScreen = ({ navigation }) => {
   const { onLogout, user } = useContext(AuthenticationContext);
+
+  useFocusEffect(
+    useCallback(() => {
+      getProfilePicture(user);
+    }, [user])
+  );
+
   return (
     <SafeArea>
       <AvatarContainer>
