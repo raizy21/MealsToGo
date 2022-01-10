@@ -1,6 +1,13 @@
 import camelize from "camelize";
 
-export const restaurantsRequest = (location) => { };
+export const restaurantsRequest = (location) => {
+  return fetch(
+    `http://localhost:5001/mealstogo-df0f9/us-central1/placesNearby?location=${location}`
+  ).then((res) => {
+    return res.json();
+  });
+
+ };
 
 export const restaurantsTransform = ({ results = [] }) => {
   const mappedResults = results.map((restaurant) => {
