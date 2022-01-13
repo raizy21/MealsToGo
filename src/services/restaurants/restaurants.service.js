@@ -5,6 +5,7 @@ export const restaurantsRequest = (location) => {
   return fetch(
     `${host}/placesNearby?location=${location}`
   ).then((res) => {
+    console.log(res);
     return res.json();
   });
 
