@@ -12,10 +12,19 @@ import { CreditCardInput } from "../components/credit-card.component";
 
 import { CartIconContainer, CartIcon, NameInput, PayButton, ClearButton } from "../components/checkout.styles";
 import { RestaurantInfoCard } from "../../restaurants/components/restaurant-info-card.component";
+import { payRequest } from "../../../services/checkout/checkout.service";
 
 export const CheckoutScreen = () => {
     const { cart, restaurant, clearCart, sum } = useContext(CartContext);
     const [name, setName] = useState("");
+
+    const onPay = () => {
+      payRequest("100", 100, "Andrei");
+    };
+  
+    useEffect(() => {
+      onPay();
+    }, []);
 
     if (!cart.length || !restaurant) {
       return (
