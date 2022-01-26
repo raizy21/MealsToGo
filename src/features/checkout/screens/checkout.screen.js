@@ -17,14 +17,17 @@ import { payRequest } from "../../../services/checkout/checkout.service";
 export const CheckoutScreen = () => {
     const { cart, restaurant, clearCart, sum } = useContext(CartContext);
     const [name, setName] = useState("");
+    const [card, setCard] = useState(null);
 
     const onPay = () => {
-      payRequest("100", 100, "Andrei");
+      if (!card || !card.id) {
+        console.log("error");
+        return;
+      }
+      payRequest(card.id, sum, name);
     };
   
-    useEffect(() => {
-      onPay();
-    }, []);
+
 
     if (!cart.length || !restaurant) {
       return (
@@ -60,11 +63,13 @@ export const CheckoutScreen = () => {
              }}
           />
           <Spacer position="top" size="large">
-             {name.length > 0 && <CreditCardInput name={name} />}
+             {name.length > 0 && (
+              <CreditCardInput name={name} onSuccess={setCard} /> 
+             )}
           </Spacer>
           <Spacer position="top" size="xxl" />
           
-          <PayButton icon="cash-usd" mode="contained" onPress={() => { console.log("pay now"); }}>
+          <PayButton icon="cash-usd" mode="contained" onPress={onPay}>
             Pay
           </PayButton>
         
