@@ -14,7 +14,7 @@ import { CartIconContainer, CartIcon, NameInput, PayButton, ClearButton, Payment
 import { RestaurantInfoCard } from "../../restaurants/components/restaurant-info-card.component";
 import { payRequest } from "../../../services/checkout/checkout.service";
 
-export const CheckoutScreen = () => {
+export const CheckoutScreen = ({ navigation }) => {
     const { cart, restaurant, clearCart, sum } = useContext(CartContext);
     const [name, setName] = useState("");
     const [card, setCard] = useState(null);
@@ -24,15 +24,23 @@ export const CheckoutScreen = () => {
       setIsLoading(true);
       if (!card || !card.id) {
         setIsLoading(false);
-        console.log("error");
+        //  console.log("error");
+        navigation.navigate("CheckoutError", {
+          error: "Please fill in a valid credit card",
+        });
         return;
       }
       payRequest(card.id, sum, name)
         .then((result) => {
           setIsLoading(false);
+          clearCart();
+          navigation.navigate("CheckoutSuccess");
         })
         .catch((err) => {
           setIsLoading(false);
+          navigation.navigate("CheckoutError", {
+            error: err,
+          });
         });
     };
   
@@ -72,7 +80,15 @@ export const CheckoutScreen = () => {
           />
           <Spacer position="top" size="large">
              {name.length > 0 && (
-              <CreditCardInput name={name} onSuccess={setCard} /> 
+              <CreditCardInput 
+                name={name} 
+                onSuccess={setCard} 
+                onError={() =>
+                  navigation.navigate("CheckoutError", {
+                    error: "Something went wrong processing your credit card",
+                  })
+                }
+                /> 
              )}
           </Spacer>
           <Spacer position="top" size="xxl" />
